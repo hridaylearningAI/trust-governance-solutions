@@ -77,6 +77,17 @@ html {
   scroll-behavior: smooth;
 }
 
+/* First-visit intro (see components/intro-gate.tsx): the inline script in
+   layout.tsx sets [data-intro] before paint, hiding the page and locking
+   scroll until the intro video finishes and the reveal takes over. */
+html[data-intro] {
+  overflow: hidden;
+}
+
+html[data-intro] [data-intro-content] {
+  visibility: hidden;
+}
+
 body {
   background: #fff;
   color: var(--color-ink);

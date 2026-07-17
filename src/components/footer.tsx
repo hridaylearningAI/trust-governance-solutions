@@ -31,7 +31,7 @@ export function Footer() {
       <div className="mx-auto max-w-6xl px-6 pb-8 pt-16">
         <div className="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div>
-            <Logo variant="light" />
+            <Logo variant="light" size="lg" />
             <p className="mt-5 max-w-[30ch] text-[15px] font-medium leading-relaxed text-[#a9bccb]">
               Helping software vendors pass enterprise compliance reviews
               faster and with confidence.

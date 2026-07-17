@@ -1,8 +1,15 @@
+import Image from "next/image";
+
 type LogoVariant = "dark" | "light";
 
 /**
- * Placeholder mark — swap this SVG for the real logo asset when it's available.
- * Everything on the site renders the logo through this file, so it's a single swap point.
+ * Brand assets (derived from the master file `public/tgs-logo-svg.svg`):
+ * - `public/tgs-mark.svg`  — shield mark only, transparent background
+ * - `public/tgs-logo.svg`  — full logo with wordmark, transparent background
+ *
+ * The mark's artwork is navy + teal, so on dark surfaces the `light` variant
+ * presents it on a white circular seal (fitting for a compliance brand)
+ * instead of disappearing into the background.
  */
 export function LogoMark({
   variant = "dark",
@@ -11,57 +18,62 @@ export function LogoMark({
   variant?: LogoVariant;
   className?: string;
 }) {
-  const stroke = variant === "dark" ? "#0e2a44" : "#ffffff";
-  return (
-    <svg viewBox="0 0 48 48" className={className} aria-hidden="true">
-      <path
-        d="M24 3 42 10v12.5C42 34.3 34.4 42.7 24 45 13.6 42.7 6 34.3 6 22.5V10L24 3Z"
-        fill="none"
-        stroke={stroke}
-        strokeWidth="2.5"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M12 20h24"
-        stroke={stroke}
-        strokeWidth="1.5"
-        strokeLinecap="round"
-      />
-      <text
-        x="24"
-        y="33"
-        textAnchor="middle"
-        fontSize="11"
-        fontWeight="800"
-        fill={stroke}
-        fontFamily="inherit"
+  if (variant === "light") {
+    return (
+      <span
+        className={`flex shrink-0 items-center justify-center rounded-full bg-white ${className}`}
       >
-        TGS
-      </text>
-    </svg>
+        <Image
+          src="/tgs-mark.svg"
+          alt=""
+          width={768}
+          height={809}
+          className="h-[72%] w-[72%] object-contain"
+        />
+      </span>
+    );
+  }
+  return (
+    <Image
+      src="/tgs-mark.svg"
+      alt=""
+      width={627}
+      height={661}
+      className={`object-contain ${className}`}
+    />
   );
 }
 
 export function Logo({
   variant = "dark",
+  size = "md",
   className = "",
 }: {
   variant?: LogoVariant;
+  size?: "md" | "lg";
   className?: string;
 }) {
   const ink = variant === "dark" ? "text-ink" : "text-white";
+  const lg = size === "lg";
   return (
-    <span className={`inline-flex items-center gap-2.5 ${className}`}>
-      <LogoMark variant={variant} className="h-10 w-10 shrink-0" />
+    <span
+      className={`inline-flex items-center ${lg ? "gap-3.5" : "gap-2.5"} ${className}`}
+    >
+      <LogoMark
+        variant={variant}
+        className={lg ? "h-14 w-14 shrink-0" : "h-10 w-10 shrink-0"}
+      />
       <span className="leading-none">
         <span
-          className={`block text-[15px] font-extrabold tracking-[0.06em] ${ink}`}
+          className={`block ${lg ? "text-[19px]" : "text-[15px]"} font-extrabold tracking-[0.06em] ${ink}`}
         >
           TRUST GOVERNANCE
         </span>
-        <span className="mt-1.5 flex items-center gap-2">
+        <span className={`${lg ? "mt-2" : "mt-1.5"} flex items-center gap-2`}>
           <span className="h-px flex-1 bg-brand" aria-hidden="true" />
-          <span className="text-[10px] font-extrabold tracking-[0.32em] text-brand-deep">
+          <span
+            className={`${lg ? "text-[12px]" : "text-[10px]"} font-extrabold tracking-[0.32em] text-brand-deep`}
+          >
             SOLUTIONS
           </span>
           <span className="h-px flex-1 bg-brand" aria-hidden="true" />

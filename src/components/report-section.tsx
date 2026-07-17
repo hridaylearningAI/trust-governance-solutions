@@ -1,6 +1,7 @@
 import {
   ArrowRight,
   Checkmark,
+  CheckmarkFilled,
   CircleDash,
   DataBackup,
   Debug,
@@ -60,33 +61,73 @@ function ReportCard({ fill = false }: { fill?: boolean }) {
           : ""
       }`}
     >
-      {/* navy rail */}
+      {/* navy rail: document identity */}
       <div
-        className={`flex items-center justify-between gap-4 bg-navy p-5 min-[480px]:flex-col min-[480px]:items-start min-[480px]:justify-start min-[480px]:gap-0 ${
-          fill ? "lg:p-7" : ""
+        className={`flex items-center justify-between gap-4 bg-navy p-5 min-[480px]:flex-col min-[480px]:items-stretch min-[480px]:justify-start ${
+          fill ? "lg:p-6" : ""
         }`}
       >
-        <p className="text-sm font-extrabold uppercase leading-relaxed tracking-[0.08em] text-white">
-          TGS
-          <br />
-          Compliance
-          <br />
-          Report
-        </p>
-        <LogoMark
-          variant="light"
-          className="h-16 w-16 min-[480px]:mt-10 min-[480px]:h-20 min-[480px]:w-20"
-        />
+        <div className="flex items-center gap-3 min-[480px]:flex-col min-[480px]:items-start min-[480px]:gap-0">
+          <LogoMark
+            variant="light"
+            className="h-12 w-12 shrink-0 min-[480px]:h-14 min-[480px]:w-14"
+          />
+          <div className="min-[480px]:mt-4">
+            <p className="text-[9px] font-extrabold uppercase tracking-[0.24em] text-white/50">
+              Trust Governance
+            </p>
+            <p className="mt-1 text-base font-black leading-tight text-white min-[480px]:text-lg">
+              Compliance Report
+            </p>
+          </div>
+        </div>
+
+        {fill && (
+          <dl className="mt-6 hidden space-y-4 border-t border-white/15 pt-5 lg:block">
+            {[
+              ["Report ID", "TGS-2026-0142"],
+              ["Issued", "Jul 12, 2026"],
+              ["Coverage", "Continuous"],
+            ].map(([term, detail]) => (
+              <div key={term}>
+                <dt className="text-[9px] font-extrabold uppercase tracking-[0.18em] text-white/45">
+                  {term}
+                </dt>
+                <dd className="mt-0.5 text-[12px] font-bold text-white/90">
+                  {detail}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        )}
+
+        <span className="inline-flex items-center gap-1.5 self-center rounded-full border border-brand/50 bg-brand/15 px-3 py-1 text-[10px] font-extrabold uppercase tracking-[0.14em] text-brand-soft min-[480px]:mt-auto min-[480px]:self-start min-[480px]:pt-1">
+          <Checkmark className="h-3 w-3" />
+          Verified
+        </span>
       </div>
 
       {/* document body */}
       <div
-        className={
+        className={`relative ${
           fill ? "flex min-h-0 flex-col p-6 lg:px-9 lg:py-8" : "p-6"
-        }
+        }`}
       >
+        {/* faint seal watermark, as on a stamped document */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-[0.04]"
+        >
+          <LogoMark className="h-64 w-64" />
+        </div>
+
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <span className="text-xl font-black text-ink">Acme Tools</span>
+          <div>
+            <span className="text-xl font-black text-ink">Acme Tools</span>
+            <p className="mt-0.5 text-[11px] font-bold text-faint">
+              Vendor Compliance Assessment · Issued Jul 12, 2026
+            </p>
+          </div>
           <span className="rounded-md bg-mist px-2.5 py-1.5 text-[10px] font-extrabold tracking-wide text-body">
             PREPARED FOR <span className="text-ink">BIGCO</span>
           </span>
@@ -148,8 +189,17 @@ function ReportCard({ fill = false }: { fill?: boolean }) {
           ))}
         </ul>
 
-        <p className="mt-4 rounded-lg bg-mist px-4 py-3 text-[13px] font-bold text-body">
-          Designed to be accepted as-is — no follow-up questionnaire.
+        <p className="mt-4 flex flex-wrap items-center gap-x-2 gap-y-1 rounded-lg bg-mist px-4 py-3 text-[13px] font-bold text-body">
+          <CheckmarkFilled className="h-4 w-4 shrink-0 text-brand-deep" />
+          <span>
+            Digitally attested by TGS — accepted as-is, no follow-up
+            questionnaire.
+          </span>
+          {fill && (
+            <span className="ml-auto text-[10px] font-extrabold tracking-wide text-faint">
+              TGS-2026-0142
+            </span>
+          )}
         </p>
       </div>
     </div>
