@@ -1,7 +1,11 @@
+"use client";
+
+import React, { useState } from "react";
 import Link from "next/link";
 import {
   ArrowRight,
   CheckmarkOutline,
+  Development,
   Security,
   Time,
 } from "@carbon/icons-react";
@@ -9,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import { TextEffect } from "@/components/motion-primitives/text-effect";
 import { AnimatedGroup } from "@/components/motion-primitives/animated-group";
 import { DashboardPreview } from "./dashboard-preview";
+import { GapCheckModal } from "./gap-check-modal";
 
 const transitionVariants = {
   item: {
@@ -33,10 +38,12 @@ const transitionVariants = {
 const trustItems = [
   { icon: Time, label: "85% less engineering time on reviews" },
   { icon: Security, label: "Built for software vendors" },
-  { icon: CheckmarkOutline, label: "Reports mapped to enterprise standards" },
+  { icon: CheckmarkOutline, label: "Reports accepted as-is by enterprise buyers" },
 ];
 
 export function Hero() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <section id="top" className="overflow-hidden">
       <div>
@@ -49,9 +56,10 @@ export function Hero() {
           <div className="mx-auto max-w-7xl px-6">
             <div className="text-center sm:mx-auto lg:mr-auto lg:mt-0">
               <AnimatedGroup variants={transitionVariants}>
-                <Link
-                  href="#get-started"
-                  className="hover:bg-white bg-mist group mx-auto flex w-fit items-center gap-4 rounded-full border border-line p-1 pl-4 shadow-md shadow-navy/5 transition-colors duration-300"
+                <button
+                  type="button"
+                  onClick={() => setIsModalOpen(true)}
+                  className="hover:bg-white bg-mist group mx-auto flex w-fit items-center gap-4 rounded-full border border-line p-1 pl-4 shadow-md shadow-navy/5 transition-colors duration-300 cursor-pointer"
                 >
                   <span className="text-sm font-bold text-ink">
                     Free gap check — 15 minutes, no obligation
@@ -68,7 +76,7 @@ export function Hero() {
                       </span>
                     </div>
                   </div>
-                </Link>
+                </button>
               </AnimatedGroup>
 
               <TextEffect
@@ -87,9 +95,8 @@ export function Hero() {
                 as="p"
                 className="mx-auto mt-8 max-w-2xl text-balance text-lg font-medium text-body"
               >
-                Pass their compliance review before it even starts. Compliance
-                reports & remediation for software vendors selling into the
-                enterprise.
+                Pass enterprise security reviews before they even start. One continuously-monitored
+                compliance report that enterprise buyers accept as-is.
               </TextEffect>
 
               <AnimatedGroup
@@ -104,30 +111,28 @@ export function Hero() {
                   },
                   ...transitionVariants,
                 }}
-                className="mt-12 flex flex-col items-center justify-center gap-2 md:flex-row"
+                className="mt-12 flex flex-col items-center justify-center gap-3 md:flex-row"
               >
-                <div
-                  key={1}
-                  className="bg-navy/10 rounded-[calc(var(--radius-xl)+0.125rem)] border border-line p-0.5"
-                >
+                <div className="bg-navy/10 rounded-[calc(var(--radius-xl)+0.125rem)] border border-line p-0.5">
                   <Button
-                    nativeButton={false}
-                    render={<Link href="#get-started" />}
+                    onClick={() => setIsModalOpen(true)}
                     size="lg"
-                    className="h-11 rounded-xl px-5 text-base font-bold"
+                    className="h-11 rounded-xl px-5 text-base font-bold shadow-md cursor-pointer"
                   >
                     <span className="text-nowrap">Book a Free Gap Check</span>
                     <ArrowRight className="size-4" />
                   </Button>
                 </div>
+
                 <Button
                   nativeButton={false}
-                  render={<Link href="#how-it-works" />}
+                  render={<Link href="#calculator" />}
                   size="lg"
-                  variant="ghost"
+                  variant="outline"
                   className="h-11 rounded-xl px-5 text-base font-bold text-ink"
                 >
-                  <span className="text-nowrap">See How It Works</span>
+                  <Development className="size-4 text-brand-deep" />
+                  <span className="text-nowrap">Calculate Your Timeline</span>
                 </Button>
               </AnimatedGroup>
 
@@ -180,6 +185,12 @@ export function Hero() {
           </AnimatedGroup>
         </div>
       </div>
+
+      {/* Gap Check Booking Modal */}
+      <GapCheckModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </section>
   );
 }
