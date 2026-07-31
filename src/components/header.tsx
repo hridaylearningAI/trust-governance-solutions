@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Close, Menu } from "@carbon/icons-react";
+import { ChevronDown, Close, Menu } from "@carbon/icons-react";
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -11,10 +11,19 @@ import { GapCheckModal } from "./gap-check-modal";
 
 const menuItems = [
   { name: "Platform", href: "/platform" },
+  { name: "Services", href: "/services" },
   { name: "Frameworks", href: "/frameworks" },
   { name: "Calculator", href: "/calculator" },
   { name: "How It Works", href: "/how-it-works" },
   { name: "Pricing", href: "/pricing" },
+];
+
+const serviceSubItems = [
+  { name: "Governance Services", href: "/services/governance" },
+  { name: "AI Governance (EU AI Act)", href: "/services/ai-governance", badge: "High-Growth" },
+  { name: "Audit Support & Defense", href: "/services/audit-support" },
+  { name: "Security Operations & vCISO", href: "/services/security-operations" },
+  { name: "Technical Security Assessments", href: "/services/technical-security-assessments" },
 ];
 
 export function Header() {
@@ -22,6 +31,7 @@ export function Header() {
   const [menuState, setMenuState] = React.useState(false);
   const [isScrolled, setIsScrolled] = React.useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isServicesHovered, setIsServicesHovered] = useState(false);
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -58,9 +68,59 @@ export function Header() {
 
             {/* Desktop Nav Items */}
             <div className="hidden lg:block">
-              <ul className="flex items-center gap-6 text-sm font-bold">
+              <ul className="flex items-center gap-5 text-sm font-bold">
                 {menuItems.map((item) => {
-                  const isActive = pathname === item.href;
+                  const isActive = pathname === item.href || (item.href === "/services" && pathname.startsWith("/services"));
+                  const isServices = item.href === "/services";
+
+                  if (isServices) {
+                    return (
+                      <li
+                        key={item.href}
+                        className="relative"
+                        onMouseEnter={() => setIsServicesHovered(true)}
+                        onMouseLeave={() => setIsServicesHovered(false)}
+                      >
+                        <Link
+                          href={item.href}
+                          className={cn(
+                            "inline-flex items-center gap-1 transition-colors duration-150 py-1 px-2 rounded-lg text-body hover:text-brand-deep",
+                            isActive && "bg-brand-soft text-brand-deeper font-extrabold"
+                          )}
+                        >
+                          <span>{item.name}</span>
+                          <ChevronDown className="h-3.5 w-3.5 opacity-70" />
+                        </Link>
+
+                        {/* Services Dropdown */}
+                        {isServicesHovered && (
+                          <div className="absolute top-full left-0 mt-1 w-64 rounded-2xl border border-line bg-white p-3 shadow-xl space-y-1">
+                            <Link
+                              href="/services"
+                              className="block p-2 rounded-xl text-xs font-black text-ink hover:bg-mist hover:text-brand-deep border-b border-line pb-2 mb-1"
+                            >
+                              All Services Overview →
+                            </Link>
+                            {serviceSubItems.map((sub) => (
+                              <Link
+                                key={sub.href}
+                                href={sub.href}
+                                className="flex items-center justify-between p-2 rounded-xl text-xs font-bold text-body hover:bg-mist hover:text-brand-deep transition-colors"
+                              >
+                                <span>{sub.name}</span>
+                                {sub.badge && (
+                                  <span className="rounded-full bg-brand px-2 py-0.5 text-[9px] font-extrabold text-navy-deep">
+                                    {sub.badge}
+                                  </span>
+                                )}
+                              </Link>
+                            ))}
+                          </div>
+                        )}
+                      </li>
+                    );
+                  }
+
                   return (
                     <li key={item.href}>
                       <Link
@@ -102,7 +162,7 @@ export function Header() {
             <div className="mt-4 border-t border-line pt-4 pb-2 lg:hidden space-y-3 bg-white rounded-2xl p-4 shadow-xl border border-line">
               <ul className="space-y-2">
                 {menuItems.map((item) => {
-                  const isActive = pathname === item.href;
+                  const isActive = pathname === item.href || (item.href === "/services" && pathname.startsWith("/services"));
                   return (
                     <li key={item.href}>
                       <Link

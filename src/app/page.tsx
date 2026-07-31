@@ -11,6 +11,7 @@ import { IntroGate } from "@/components/intro-gate";
 import { MotionProvider } from "@/components/motion-provider";
 import { ProblemComparison } from "@/components/problem-comparison";
 import { ReportSection } from "@/components/report-section";
+import { ServicesSection } from "@/components/services-section";
 import { StatBanner } from "@/components/stat-banner";
 
 export default function Home() {
@@ -22,6 +23,7 @@ export default function Home() {
         <Hero />
         <FrameworksBand />
         <ProblemComparison />
+        <ServicesSection />
         <FrameworkExplorer />
         <IntegrationsMarquee />
         <InteractiveCalculator />

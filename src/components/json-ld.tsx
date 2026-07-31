@@ -9,7 +9,7 @@ export function JsonLd() {
     url: "https://www.trustgovernance.co",
     logo: "https://www.trustgovernance.co/logo.png",
     description:
-      "TGS scans software vendor stacks, fixes compliance gaps, and issues buyer-ready compliance reports with continuous 24/7 monitoring.",
+      "TGS scans software vendor stacks, provides AI Governance & vCISO services, and issues buyer-ready compliance reports.",
     email: "hello@trustgovernance.co",
     sameAs: [
       "https://twitter.com/trustgovernance",
@@ -21,6 +21,48 @@ export function JsonLd() {
       contactType: "customer service",
       availableLanguage: ["English"],
     },
+  };
+
+  const servicesSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    itemListElement: [
+      {
+        "@type": "Service",
+        name: "Governance Services",
+        url: "https://www.trustgovernance.co/services/governance",
+        description: "Information Security Management System (ISMS) buildout, Risk Assessment Frameworks (NIST, ISO 27001), and Executive Board Reporting.",
+        provider: { "@type": "Organization", name: "Trust Governance Solutions" },
+      },
+      {
+        "@type": "Service",
+        name: "AI Governance",
+        url: "https://www.trustgovernance.co/services/ai-governance",
+        description: "EU AI Act readiness, ISO/IEC 42001 certification, NIST AI RMF, LLM data privacy, and shadow AI detection.",
+        provider: { "@type": "Organization", name: "Trust Governance Solutions" },
+      },
+      {
+        "@type": "Service",
+        name: "Audit Support & Defense",
+        url: "https://www.trustgovernance.co/services/audit-support",
+        description: "SOC 2 Type I/II & ISO 27001 external audit representation, auditor coordination, and zero-surprise audit defense.",
+        provider: { "@type": "Organization", name: "Trust Governance Solutions" },
+      },
+      {
+        "@type": "Service",
+        name: "Security Operations & vCISO",
+        url: "https://www.trustgovernance.co/services/security-operations",
+        description: "Virtual CISO (vCISO) advisory, 24/7 SecOps monitoring, incident response playbooks, and vulnerability SLAs.",
+        provider: { "@type": "Organization", name: "Trust Governance Solutions" },
+      },
+      {
+        "@type": "Service",
+        name: "Technical Security Assessments",
+        url: "https://www.trustgovernance.co/services/technical-security-assessments",
+        description: "Web application & API penetration testing, cloud infrastructure security audits, SAST/DAST code analysis, and IAM reviews.",
+        provider: { "@type": "Organization", name: "Trust Governance Solutions" },
+      },
+    ],
   };
 
   const softwareSchema = {
@@ -41,11 +83,12 @@ export function JsonLd() {
       reviewCount: "142",
     },
     featureList: [
+      "AI Governance & EU AI Act Compliance",
       "Automated Cloud Stack Scanning (AWS, GCP, Azure)",
       "SOC 2 Type II & ISO 27001 Control Mapping",
+      "Virtual CISO (vCISO) Security Leadership",
       "24/7 Continuous Drift Monitoring",
       "Single Reusable Buyer Attestation Report",
-      "85% Engineering Time Reduction",
     ],
   };
 
@@ -55,10 +98,18 @@ export function JsonLd() {
     mainEntity: [
       {
         "@type": "Question",
-        name: "How does TGS differ from DIY compliance tools like Vanta or Drata?",
+        name: "What services does Trust Governance Solutions provide?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Software-only platforms sell software subscriptions where your engineering team still has to manage 100s of controls and handle audits yourself. TGS provides managed gap remediation and issues a single, continuously-monitored buyer-ready attestation report that buyers accept as-is.",
+          text: "TGS provides 5 core enterprise security services: Governance Services (ISMS & Risk Frameworks), AI Governance (EU AI Act & ISO 42001), Audit Support & Defense (SOC 2 & ISO representation), Security Operations (vCISO & 24/7 SecOps), and Technical Security Assessments (Penetration Testing & Cloud Audits).",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "How does TGS AI Governance help vendors comply with the EU AI Act?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "TGS AI Governance provides AI system risk tier classification, ISO/IEC 42001 certification guidance, NIST AI RMF mapping, LLM data privacy audits, and shadow AI detection across employee tools.",
         },
       },
       {
@@ -69,14 +120,6 @@ export function JsonLd() {
           text: "The standard TGS remediation and attestation process takes approximately 3 weeks (21 days) from initial stack scan to final report issuance.",
         },
       },
-      {
-        "@type": "Question",
-        name: "Will enterprise buyers accept the TGS compliance report instead of 300-question spreadsheets?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Yes! The TGS report is digitally attested, backed by verified product evidence logs, and mapped to SOC 2, ISO 27001, and GDPR standards. Enterprise buyers accept it as-is.",
-        },
-      },
     ],
   };
 
@@ -85,6 +128,10 @@ export function JsonLd() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(servicesSchema) }}
       />
       <script
         type="application/ld+json"

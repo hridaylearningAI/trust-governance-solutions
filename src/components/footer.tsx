@@ -3,13 +3,23 @@ import { Logo } from "./logo";
 
 const columns = [
   {
-    heading: "Platform",
+    heading: "Core Services",
+    links: [
+      { label: "Governance Services", href: "/services/governance" },
+      { label: "AI Governance (EU AI Act)", href: "/services/ai-governance" },
+      { label: "Audit Support & Defense", href: "/services/audit-support" },
+      { label: "Security Operations & vCISO", href: "/services/security-operations" },
+      { label: "Technical Assessments", href: "/services/technical-security-assessments" },
+    ],
+  },
+  {
+    heading: "Platform & Tech",
     links: [
       { label: "Platform Overview", href: "/platform" },
-      { label: "100+ Integrations", href: "/platform#integrations" },
+      { label: "100+ Stack Integrations", href: "/platform#integrations" },
       { label: "24/7 Continuous Scan", href: "/platform#monitoring" },
       { label: "Timeline Calculator", href: "/calculator" },
-      { label: "3-Week Timeline", href: "/how-it-works" },
+      { label: "3-Week Process", href: "/how-it-works" },
     ],
   },
   {
@@ -30,16 +40,6 @@ const columns = [
       { label: "Enterprise Scale Plan", href: "/pricing#enterprise" },
       { label: "Book Free Gap Check", href: "/pricing#gap-check" },
       { label: "ROI Calculator", href: "/calculator" },
-    ],
-  },
-  {
-    heading: "Company & Legal",
-    links: [
-      { label: "About TGS", href: "/" },
-      { label: "Contact Us", href: "mailto:hello@trustgovernance.co" },
-      { label: "Privacy Policy", href: "#" },
-      { label: "Terms of Service", href: "#" },
-      { label: "Security & Trust Center", href: "#" },
     ],
   },
 ];
