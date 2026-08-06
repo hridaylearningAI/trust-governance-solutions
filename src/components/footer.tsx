@@ -86,10 +86,10 @@ export function Footer() {
           <span>© 2026 Trust Governance Solutions Inc. All rights reserved.</span>
           <div className="flex items-center gap-4">
             <a
-              href="mailto:hello@trustgovernance.co"
+              href="mailto:hello@tgsolutions.net"
               className="transition-colors hover:text-white"
             >
-              hello@trustgovernance.co
+              hello@tgsolutions.net
             </a>
             <span aria-hidden="true">·</span>
             <Link href="/" className="text-brand hover:underline">

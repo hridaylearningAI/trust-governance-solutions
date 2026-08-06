@@ -35,14 +35,14 @@ export function CtaSection() {
             Start your free gap check
           </h3>
           <a
-            href="mailto:hello@trustgovernance.co"
+            href="mailto:hello@tgsolutions.net"
             className="mt-5 flex items-center gap-3 rounded-lg border border-line px-4 py-3 text-[15px] font-bold text-ink transition-colors hover:border-brand-deep hover:text-brand-deep"
           >
             <Email className="h-4.5 w-4.5 shrink-0 text-brand-deep" />
-            hello@trustgovernance.co
+            hello@tgsolutions.net
           </a>
           <a
-            href="mailto:hello@trustgovernance.co?subject=Free%20gap%20check"
+            href="mailto:hello@tgsolutions.net?subject=Free%20gap%20check"
             className="mt-3 flex w-full items-center justify-center gap-2 rounded-lg bg-brand-deep px-6 py-3.5 text-base font-extrabold text-white transition-colors hover:bg-brand-deeper"
           >
             Book a Free Gap Check
@@ -50,7 +50,7 @@ export function CtaSection() {
           </a>
           <p className="mt-4 flex items-center justify-center gap-2 text-[13px] font-bold text-body">
             <Earth className="h-4 w-4 text-faint" />
-            trustgovernance.co/gap-check
+            tgsolutions.net/gap-check
           </p>
         </div>
 

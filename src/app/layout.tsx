@@ -6,7 +6,7 @@ import { JsonLd } from "@/components/json-ld";
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
 
-const siteUrl = "https://www.trustgovernance.co";
+const siteUrl = "https://www.tgsolutions.net";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -26,6 +26,9 @@ export const metadata: Metadata = {
     "security questionnaire automation",
     "continuous drift monitoring",
     "reusable compliance report",
+    "AI governance",
+    "EU AI Act compliance",
+    "vCISO advisory",
   ],
   authors: [{ name: "Trust Governance Solutions", url: siteUrl }],
   creator: "Trust Governance Solutions",
@@ -47,7 +50,7 @@ export const metadata: Metadata = {
     title: "Trust Governance Solutions — Vendor Compliance, Handled.",
     description:
       "Pass enterprise compliance reviews before they even start. Single reusable attestation report for SOC 2, ISO 27001, and GDPR.",
-    creator: "@trustgovernance",
+    creator: "@tgsolutions",
   },
   robots: {
     index: true,
