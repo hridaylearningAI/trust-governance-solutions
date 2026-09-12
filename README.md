@@ -25,6 +25,17 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) in your browser.
 
+### Admin email workspace
+
+Team login: [http://localhost:3000/admin/login](http://localhost:3000/admin/login)
+
+- Compose HTML emails from a write-up (Gemini)
+- Send individual or bulk mail (Resend) from `*@mail.tgsolutions.net` with CC to `*@tgsolutions.net`
+- Shared contacts list + CSV import
+- Sent history (admin sees all; members see their own)
+
+Required env vars are listed in `.env.example`.
+
 ### Other scripts
 
 ```bash
