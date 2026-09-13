@@ -75,10 +75,10 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={cn("h-full antialiased font-sans", geist.variable)}
+      className={cn("min-h-full antialiased font-sans", geist.variable)}
       suppressHydrationWarning
     >
-      <body className="flex min-h-full flex-col font-sans">
+      <body className="flex min-h-full flex-col font-sans overflow-x-clip">
         <script dangerouslySetInnerHTML={{ __html: introScript }} />
         <JsonLd />
         {children}

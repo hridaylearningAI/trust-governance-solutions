@@ -38,7 +38,7 @@ export function AdminShell({
   }
 
   return (
-    <div className="min-h-screen bg-mist">
+    <div className="min-h-dvh bg-mist">
       <aside className="fixed inset-y-0 left-0 z-20 hidden w-60 flex-col border-r border-line bg-navy-deep text-white lg:flex">
         <div className="border-b border-white/10 px-5 py-5">
           <p className="text-[10px] font-extrabold uppercase tracking-[0.2em] text-brand">
@@ -131,7 +131,9 @@ export function AdminShell({
             })}
           </nav>
         </header>
-        <main className="px-4 py-6 sm:px-6 lg:px-8">{children}</main>
+        <main className="min-h-0 px-4 py-6 sm:px-6 lg:px-8 overscroll-y-contain">
+          {children}
+        </main>
       </div>
     </div>
   );

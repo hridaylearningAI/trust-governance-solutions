@@ -75,6 +75,9 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: clip;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* First-visit intro (see components/intro-gate.tsx): the inline script in
@@ -82,6 +85,13 @@ html {
    scroll until the intro video finishes and the reveal takes over. */
 html[data-intro] {
   overflow: hidden;
+  height: 100%;
+  touch-action: none;
+}
+
+html[data-intro] body {
+  overflow: hidden;
+  touch-action: none;
 }
 
 html[data-intro] [data-intro-content] {
@@ -91,6 +101,8 @@ html[data-intro] [data-intro-content] {
 body {
   background: #fff;
   color: var(--color-ink);
+  min-height: 100%;
+  overflow-x: clip;
 }
 
 h1,

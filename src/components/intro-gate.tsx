@@ -24,6 +24,19 @@ const getIntroDecision = () => {
 };
 const getServerIntroDecision = () => false;
 
+function unlockPageScroll() {
+  const root = document.documentElement;
+  root.removeAttribute("data-intro");
+  root.style.removeProperty("overflow");
+  root.style.removeProperty("height");
+  document.body.style.removeProperty("overflow");
+  document.body.style.removeProperty("position");
+  document.body.style.removeProperty("top");
+  document.body.style.removeProperty("width");
+  document.body.style.removeProperty("touch-action");
+  document.body.style.removeProperty("height");
+}
+
 /**
  * First-visit intro: plays /intro-animation.mp4 fullscreen, then the intro
  * curtain slides up while the page (hero first) rises from the bottom.
@@ -34,6 +47,8 @@ const getServerIntroDecision = () => false;
  *   missing file, stalled network) fails open straight to the content.
  * - On reveal the children remount, so the hero's own entrance animations
  *   (text blur-in, dashboard rise) replay in sync with the slide-up.
+ * - After the reveal animation, the motion wrapper is removed so iOS Safari
+ *   can scroll normally (transforms on a page shell break mobile scroll).
  */
 export function IntroGate({ children }: { children: React.ReactNode }) {
   const wantsIntro = useSyncExternalStore(
@@ -42,13 +57,15 @@ export function IntroGate({ children }: { children: React.ReactNode }) {
     getServerIntroDecision
   );
   const [finished, setFinished] = useState(false);
+  const [revealDone, setRevealDone] = useState(false);
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
   const playingVideo = wantsIntro && !finished;
-  const revealing = wantsIntro && finished;
+  const revealing = wantsIntro && finished && !revealDone;
+  const showStatic = !wantsIntro || revealDone;
 
   const finishIntro = useCallback(() => {
-    document.documentElement.removeAttribute("data-intro");
+    unlockPageScroll();
     setFinished(true);
   }, []);
 
@@ -74,6 +91,20 @@ export function IntroGate({ children }: { children: React.ReactNode }) {
 
     return () => clearTimeout(watchdog);
   }, [playingVideo, finishIntro]);
+
+  // Always restore scroll if this gate unmounts (route change, etc.).
+  useEffect(() => {
+    return () => {
+      unlockPageScroll();
+    };
+  }, []);
+
+  // Safety net: if intro never started but attribute somehow remains.
+  useEffect(() => {
+    if (!wantsIntro) {
+      unlockPageScroll();
+    }
+  }, [wantsIntro]);
 
   return (
     <>
@@ -104,7 +135,7 @@ export function IntroGate({ children }: { children: React.ReactNode }) {
             <button
               type="button"
               onClick={finishIntro}
-              className="absolute bottom-6 right-6 rounded-full border border-ink/15 bg-white/50 px-4 py-2 text-[13px] font-bold text-ink/70 backdrop-blur-sm transition-colors hover:bg-white hover:text-ink"
+              className="absolute bottom-6 right-6 z-10 min-h-11 rounded-full border border-ink/15 bg-white/50 px-4 py-2 text-[13px] font-bold text-ink/70 backdrop-blur-sm transition-colors hover:bg-white hover:text-ink"
             >
               Skip intro
             </button>
@@ -112,12 +143,18 @@ export function IntroGate({ children }: { children: React.ReactNode }) {
         )}
       </AnimatePresence>
 
-      {revealing ? (
+      {showStatic ? (
+        <div data-intro-content>{children}</div>
+      ) : revealing ? (
         <motion.div
           key="page-revealed"
           initial={{ y: "14vh", opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
+          onAnimationComplete={() => {
+            unlockPageScroll();
+            setRevealDone(true);
+          }}
         >
           {children}
         </motion.div>
